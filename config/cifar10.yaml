@@ -1,0 +1,56 @@
+# CIFAR-10 Configuration for LPMM
+
+# Dataset settings
+dataset: 'cifar10'
+num_classes: 10
+image_size: 32
+data_path: './data'
+
+# Distillation settings
+ipc: 10  # Images per class
+
+# Multi-Descriptor Consensus
+descriptors:
+  - 'training_loss'
+  - 'prediction_depth'
+  - 'forgetting_extent'
+  - 'uncertainty'
+  - 'gradient_norm'
+
+weights: 'ewm'  # Entropy Weight Method ('ewm', 'uniform', 'learned')
+
+# Information Purification
+latent_dim_R: 128  # Relevant latent dimension
+latent_dim_I: 64   # Irrelevant latent dimension
+alpha: 0.5         # Semantic disentanglement weight
+beta: 0.3          # Purified synthesis weight
+
+# Network architecture
+encoder_hidden_dims: [512, 256]
+decoder_hidden_dims: [256, 512]
+classifier_hidden_dim: 128
+
+# Training hyperparameters
+epochs: 1000
+batch_size: 256
+lr: 0.001
+optimizer: 'adam'
+weight_decay: 0.0001
+
+# Learning rate schedule
+lr_schedule: 'cosine'
+warmup_epochs: 10
+
+# Evaluation
+eval_interval: 10  # Evaluate every N epochs
+save_interval: 50  # Save checkpoint every N epochs
+
+# Paths
+checkpoint_dir: './checkpoints'
+log_dir: './logs'
+output_dir: './outputs'
+
+# Device
+gpu: '0'
+num_workers: 4
+seed: 42

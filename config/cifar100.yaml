@@ -1,0 +1,56 @@
+# CIFAR-100 Configuration for LPMM
+
+# Dataset settings
+dataset: 'cifar100'
+num_classes: 100
+image_size: 32
+data_path: './data'
+
+# Distillation settings
+ipc: 50  # Images per class
+
+# Multi-Descriptor Consensus
+descriptors:
+  - 'training_loss'
+  - 'prediction_depth'
+  - 'forgetting_extent'
+  - 'uncertainty'
+  - 'gradient_norm'
+
+weights: 'ewm'
+
+# Information Purification
+latent_dim_R: 256
+latent_dim_I: 128
+alpha: 0.6
+beta: 0.4
+
+# Network architecture
+encoder_hidden_dims: [1024, 512, 256]
+decoder_hidden_dims: [256, 512, 1024]
+classifier_hidden_dim: 256
+
+# Training hyperparameters
+epochs: 1500
+batch_size: 128
+lr: 0.0005
+optimizer: 'adam'
+weight_decay: 0.0001
+
+# Learning rate schedule
+lr_schedule: 'cosine'
+warmup_epochs: 20
+
+# Evaluation
+eval_interval: 20
+save_interval: 100
+
+# Paths
+checkpoint_dir: './checkpoints'
+log_dir: './logs'
+output_dir: './outputs'
+
+# Device
+gpu: '0'
+num_workers: 4
+seed: 42
